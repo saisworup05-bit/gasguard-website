@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LPG Safety Knowledge Center — GasGuard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf6ee;
+    --panel:#ffffff;
+    --ink:#241f1a;
+    --ink-soft:#5c5347;
+    --line:#e7dfd0;
+    --flame:#c0392b;
+    --flame-soft:#fdece8;
+    --amber:#c67a1e;
+    --amber-soft:#fdf1e2;
+    --teal:#1d6f6f;
+    --teal-soft:#e8f4f2;
+    --navy:#1f2d3a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Source Sans 3',sans-serif;line-height:1.6;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;color:var(--navy);margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(250,246,238,0.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1080px;margin:0 auto;}
+  .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--navy);display:flex;align-items:center;gap:8px;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--flame);}
+  .navlinks{display:flex;gap:22px;font-size:14px;font-weight:600;flex-wrap:wrap;}
+  .navlinks a{text-decoration:none;color:var(--ink-soft);padding:4px 0;border-bottom:2px solid transparent;}
+  .navlinks a:hover{color:var(--flame);border-color:var(--flame);}
+
+  header.hero{padding:64px 0 50px;border-bottom:1px solid var(--line);}
+  .hero-badge{display:inline-block;font-size:11.5px;letter-spacing:1.2px;font-weight:700;color:var(--flame);background:var(--flame-soft);padding:5px 12px;border-radius:20px;margin-bottom:16px;}
+  .hero h1{font-size:44px;line-height:1.12;max-width:680px;}
+  .hero p.lead{font-size:17px;color:var(--ink-soft);max-width:600px;margin-top:16px;}
+  .hero-stats{display:flex;gap:36px;margin-top:34px;flex-wrap:wrap;}
+  .stat b{font-family:'Space Grotesk',sans-serif;font-size:26px;color:var(--navy);display:block;}
+  .stat span{font-size:12.5px;color:var(--ink-soft);}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--flame);margin-bottom:8px;}
+  section h2{font-size:28px;margin-bottom:8px;}
+  section p.intro{color:var(--ink-soft);max-width:680px;margin-bottom:28px;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media (max-width:760px){.grid3{grid-template-columns:1fr;}.grid2{grid-template-columns:1fr;}}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;}
+  .card h3{font-size:16px;margin-bottom:8px;}
+  .card p{font-size:14px;color:var(--ink-soft);margin:0;}
+  .card .num{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--amber);font-size:13px;margin-bottom:6px;display:block;}
+
+  .physics-box{background:var(--navy);color:#eef2f4;border-radius:12px;padding:30px 32px;margin-top:10px;}
+  .physics-box h3{color:#fff;font-size:18px;margin-bottom:10px;}
+  .physics-box p{color:#c7d2d8;font-size:14.5px;}
+  .range-bar{height:14px;border-radius:7px;background:linear-gradient(90deg,#2c3e50 0%,#2c3e50 22%, var(--flame) 22%, var(--flame) 95%, #2c3e50 95%);margin:18px 0 8px;}
+  .range-labels{display:flex;justify-content:space-between;font-size:11.5px;color:#9fb0b8;}
+
+  table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:10px;overflow:hidden;border:1px solid var(--line);}
+  th,td{text-align:left;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--line);}
+  th{background:var(--amber-soft);color:var(--navy);font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:0.3px;}
+  tr:last-child td{border-bottom:none;}
+
+  .checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;}
+  @media (max-width:760px){.checklist{grid-template-columns:1fr;}}
+  .checklist li{list-style:none;padding-left:26px;position:relative;font-size:14.5px;margin-bottom:10px;}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700;}
+
+  .sos{background:var(--flame-soft);border:1px solid #f0c6be;border-radius:10px;padding:20px 24px;margin-top:26px;}
+  .sos h3{color:var(--flame);font-size:15px;margin-bottom:10px;}
+  .sos-numbers{display:flex;gap:28px;flex-wrap:wrap;}
+  .sos-numbers div b{display:block;font-family:'Space Grotesk',sans-serif;font-size:22px;color:var(--flame);}
+  .sos-numbers div span{font-size:12px;color:var(--ink-soft);}
+
+  .device-panel{display:flex;gap:26px;align-items:center;flex-wrap:wrap;}
+  .device-panel .txt{flex:1;min-width:260px;}
+  .device-panel .flow{flex:1;min-width:260px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;font-size:13.5px;}
+  .flow-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+  .flow-step .n{background:var(--teal);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+
+  /* AI Assistant */
+  .assistant-panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .assistant-head{background:var(--navy);color:#fff;padding:16px 22px;display:flex;align-items:center;gap:10px;}
+  .assistant-head .pulse{width:9px;height:9px;border-radius:50%;background:#4fd1a5;animation:blink 1.6s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  #chatBody{height:340px;overflow-y:auto;padding:20px 22px;display:flex;flex-direction:column;gap:12px;}
+  .msg{max-width:80%;padding:10px 14px;border-radius:10px;font-size:14px;line-height:1.5;}
+  .msg.user{align-self:flex-end;background:var(--teal-soft);color:var(--navy);border-bottom-right-radius:2px;}
+  .msg.bot{align-self:flex-start;background:var(--amber-soft);color:var(--navy);border-bottom-left-radius:2px;white-space:pre-wrap;}
+  .msg.bot.loading{color:var(--ink-soft);font-style:italic;}
+  .chat-input-row{display:flex;border-top:1px solid var(--line);}
+  #chatInput{flex:1;border:none;padding:16px 20px;font-size:14.5px;font-family:inherit;outline:none;background:transparent;}
+  #chatSend{border:none;background:var(--flame);color:#fff;padding:0 26px;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;}
+  #chatSend:hover{background:#a5301f;}
+  #chatSend:disabled{background:#c9b9ae;cursor:not-allowed;}
+  .suggested{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 16px;}
+  .chip{font-size:12.5px;border:1px solid var(--line);border-radius:20px;padding:6px 12px;cursor:pointer;background:#fbf8f2;color:var(--ink-soft);}
+  .chip:hover{border-color:var(--flame);color:var(--flame);}
+  .disclaimer{font-size:11.5px;color:var(--ink-soft);padding:10px 22px 18px;border-top:1px solid var(--line);}
+
+  footer{padding:30px 0;text-align:center;font-size:12.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="navbar">
+    <div class="brand"><span class="dot"></span>GasGuard Knowledge Center</div>
+    <div class="navlinks">
+      <a href="#lpg">About LPG</a>
+      <a href="#causes">Leak Causes</a>
+      <a href="#physics">The Hazard</a>
+      <a href="#companies">Companies</a>
+      <a href="#prevention">Prevention</a>
+      <a href="#device">GasGuard</a>
+      <a href="#assistant">Ask Assistant</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-badge">SCHOOL SAFETY INITIATIVE · NCSC / INSPIRE MANAK</div>
+    <h1>Everything a household needs to know about LPG gas safety.</h1>
+    <p class="lead">A single reference on how LPG works, why leaks turn dangerous, who supplies it in India, how to prevent an accident — and an automatic device (GasGuard) that stops a leak before it becomes a disaster.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>2.2%–9.5%</b><span>explosive concentration range of LPG in air</span></div>
+      <div class="stat"><b>1906</b><span>India's 24×7 LPG emergency helpline</span></div>
+      <div class="stat"><b>3</b><span>major public-sector LPG distributors</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="lpg">
+  <div class="wrap">
+    <div class="eyebrow">Fundamentals</div>
+    <h2>What exactly is LPG?</h2>
+    <p class="intro">Liquefied Petroleum Gas (LPG) is the fuel inside the cylinder connected to most Indian kitchen stoves. Understanding its basic properties is the first step to understanding why it's dangerous when it escapes.</p>
+    <div class="grid3">
+      <div class="card"><span class="num">01</span><h3>Composition</h3><p>Mainly a mixture of propane and butane, stored under pressure as a liquid inside the cylinder and released as a gas at the regulator.</p></div>
+      <div class="card"><span class="num">02</span><h3>Naturally odourless</h3><p>Pure LPG has almost no smell. Suppliers deliberately add ethyl mercaptan, a strong "rotten egg" smelling compound, purely so leaks can be noticed.</p></div>
+      <div class="card"><span class="num">03</span><h3>Heavier than air</h3><p>LPG vapour is denser than air, so a leak doesn't disperse upward — it sinks and pools near the floor, under cabinets, and in drains.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="causes">
+  <div class="wrap">
+    <div class="eyebrow">Root Causes</div>
+    <h2>How does a gas leak actually happen?</h2>
+    <p class="intro">Leaks are rarely sudden — they usually build up from ordinary wear that goes unnoticed for months.</p>
+    <div class="grid3">
+      <div class="card"><h3>Perished rubber tubing</h3><p>The rubber hose connecting the regulator to the stove hardens and cracks with age and heat exposure — the single most common cause.</p></div>
+      <div class="card"><h3>Worn or loose regulator</h3><p>A regulator that isn't seated properly, or has aged rubber seals, allows gas to escape at the cylinder connection point.</p></div>
+      <div class="card"><h3>Corroded cylinder valve</h3><p>Rust or damage on the cylinder valve threading prevents a tight seal with the regulator.</p></div>
+      <div class="card"><h3>Overfilled or damaged cylinders</h3><p>Cylinders filled beyond safe capacity, or dented/damaged in transport, are more prone to leakage under pressure.</p></div>
+      <div class="card"><h3>Loose stove-end fittings</h3><p>Connections at the stove's gas inlet that are not properly clamped or tightened over time.</p></div>
+      <div class="card"><h3>Expired safety components</h3><p>Rubber hoses and regulators have a recommended replacement life (typically ~2 years for hoses) that many households don't track.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="physics">
+  <div class="wrap">
+    <div class="eyebrow">Why it's dangerous</div>
+    <h2>The physics of how a small leak becomes a disaster</h2>
+    <p class="intro">A leak by itself doesn't explode — it needs a specific sequence of conditions. Understanding this sequence is exactly what a detection system like GasGuard is designed to interrupt.</p>
+    <div class="physics-box">
+      <h3>Step-by-step: leak → explosion</h3>
+      <p>1. Gas escapes and, being heavier than air, sinks and accumulates in low, poorly ventilated spaces rather than dispersing.</p>
+      <p>2. As concentration rises, the air-gas mixture enters its <b>flammable range</b> — too little gas won't burn, but too much also won't ignite; there's a specific window.</p>
+      <div class="range-bar"></div>
+      <div class="range-labels"><span>0%</span><span>2.2% (Lower Explosive Limit)</span><span>9.5% (Upper Explosive Limit)</span><span>100%</span></div>
+      <p style="margin-top:14px;">3. Within that 2.2%–9.5% window, any ignition source — a spark from a switch, an open flame, even static electricity — can ignite the accumulated cloud instantly and violently, rather than burning gradually like a normal flame.</p>
+      <p>4. In a sealed room, this also creates a secondary risk before ignition even happens: LPG displaces oxygen, which can cause dizziness or asphyxiation in a confined, unventilated space.</p>
+    </div>
+  </div>
+</section>
+
+<section id="companies">
+  <div class="wrap">
+    <div class="eyebrow">Who Supplies It</div>
+    <h2>Major LPG & gas distribution companies in India</h2>
+    <p class="intro">All public-sector LPG marketed in India funnels through the same national emergency system, regardless of which brand cylinder you use.</p>
+    <table>
+      <tr><th>Company</th><th>Brand Name</th><th>Parent</th><th>Notes</th></tr>
+      <tr><td>Indian Oil Corporation</td><td>Indane</td><td>Government of India (PSU)</td><td>Largest LPG distribution network in India</td></tr>
+      <tr><td>Bharat Petroleum</td><td>Bharatgas</td><td>Government of India (PSU)</td><td>Second-largest domestic LPG distributor</td></tr>
+      <tr><td>Hindustan Petroleum</td><td>HP Gas</td><td>Government of India (PSU)</td><td>Major public-sector distributor, wide rural coverage</td></tr>
+      <tr><td>Mahanagar Gas / IGL / Adani Total Gas / Gujarat Gas</td><td>City Gas Distribution</td><td>Various (public/private JV)</td><td>Deliver Piped Natural Gas (PNG) directly to homes in select cities — different from cylinder LPG</td></tr>
+    </table>
+    <p style="font-size:13px;color:var(--ink-soft);margin-top:14px;">Regardless of which company's cylinder is used, all leak emergencies are handled through the same all-India helpline: <b>1906</b>.</p>
+  </div>
+</section>
+
+<section id="prevention">
+  <div class="wrap">
+    <div class="eyebrow">Prevention</div>
+    <h2>Safety checklist for every household</h2>
+    <ul class="checklist">
+      <li>Replace the rubber gas hose every 2 years, even if it looks fine</li>
+      <li>Use only ISI-marked regulators, hoses, and stoves</li>
+      <li>Get your regulator and connections inspected annually by your distributor</li>
+      <li>Keep the kitchen ventilated — never seal it airtight</li>
+      <li>Never leave a lit stove unattended</li>
+      <li>Learn the smell of the added odorant so you recognize a leak instantly</li>
+      <li>If you smell gas: do not switch on/off any electrical switch or use a phone in that room</li>
+      <li>Shut the cylinder valve immediately and open doors/windows to ventilate</li>
+      <li>Evacuate the area, then call for help from outside</li>
+      <li>Never use a naked flame to "check" for a leak — use soap water on joints instead</li>
+    </ul>
+    <div class="sos">
+      <h3>SAVE THESE NUMBERS</h3>
+      <div class="sos-numbers">
+        <div><b>1906</b><span>LPG Leak Emergency (all companies, 24×7)</span></div>
+        <div><b>101</b><span>Fire Emergency</span></div>
+        <div><b>112</b><span>National Emergency Number</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="device">
+  <div class="wrap">
+    <div class="eyebrow">Our Project</div>
+    <h2>GasGuard: from detection to automatic action</h2>
+    <div class="device-panel">
+      <div class="txt">
+        <p>Most household gas alarms only sound a beep — they don't stop the leak. GasGuard is designed to close that gap: the moment gas concentration crosses a safe threshold, it doesn't just alert the household, it physically shuts off the gas supply and starts clearing the air, without waiting for a person to react.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-step"><div class="n">1</div><div>MQ-2 sensor detects rising LPG concentration near the cylinder/stove</div></div>
+        <div class="flow-step"><div class="n">2</div><div>Microcontroller compares the reading against a calibrated safe threshold</div></div>
+        <div class="flow-step"><div class="n">3</div><div>Relay triggers: solenoid valve closes the gas line automatically</div></div>
+        <div class="flow-step"><div class="n">4</div><div>Buzzer + LED alert the household while the exhaust fan clears residual gas</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="assistant">
+  <div class="wrap">
+    <div class="eyebrow">Ask a Question</div>
+    <h2>Gas Safety Assistant</h2>
+    <p class="intro">Ask anything about LPG safety, leak prevention, or what to do in a specific situation — this assistant is scoped only to gas-safety topics.</p>
+    <div class="assistant-panel">
+      <div class="assistant-head"><span class="pulse"></span> GasGuard Safety Assistant — online</div>
+      <div id="chatBody">
+        <div class="msg bot">Hi! I can answer questions about LPG safety — leak causes, prevention, what to do in an emergency, or how GasGuard works. What would you like to know?</div>
+      </div>
+      <div class="suggested">
+        <div class="chip" onclick="askChip(this)">What do I do if I smell gas right now?</div>
+        <div class="chip" onclick="askChip(this)">How often should I replace my gas hose?</div>
+        <div class="chip" onclick="askChip(this)">Why does LPG collect near the floor?</div>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="Type your gas safety question..." onkeydown="if(event.key==='Enter')sendMsg();">
+        <button id="chatSend" onclick="sendMsg()">Ask</button>
+      </div>
+      <div class="disclaimer">This assistant provides general safety information only and is not a substitute for professional or emergency services. In an active emergency, call 1906 (LPG) or 112 immediately.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">GasGuard Knowledge Center — a school science initiative on LPG safety awareness · Informational content only, not a substitute for professional advice</div>
+</footer>
+
+<script>
+const SYSTEM_PROMPT = "You are the Gas Safety Assistant on an educational website called GasGuard, built for a school science project about LPG (cooking gas) safety in India. You ONLY answer questions related to LPG/cooking gas: what it is, how leaks happen, prevention, safety checks, emergency response, gas companies in India, and how the GasGuard automatic shutoff device works. If someone describes an ACTIVE gas leak or smell right now, your first priority is immediate safety instructions: do not operate any electrical switch, do not use a phone or flame in that room, shut the cylinder valve, ventilate by opening doors/windows, evacuate, and call the LPG emergency helpline 1906 (or 112/101 if fire has started) from outside. For general questions, give clear, concise, practical answers in 3-6 sentences, in plain language suitable for a general household audience. If asked something unrelated to gas safety, politely say you're scoped to gas safety topics only and redirect. Do not give any information that could help someone tamper with, bypass, or misuse gas equipment.";
+
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+let history = [];
+
+function addMsg(text, cls){
+  const div = document.createElement('div');
+  div.className = 'msg ' + cls;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+
+function askChip(el){
+  chatInput.value = el.textContent;
+  sendMsg();
+}
+
+async function sendMsg(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addMsg(text, 'user');
+  history.push({ role: 'user', content: text });
+  chatInput.value = '';
+  chatSend.disabled = true;
+  const loadingEl = addMsg('Thinking...', 'bot loading');
+
+  try{
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+    const data = await response.json();
+    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text);
+    const answer = textBlocks.join('\n').trim() || "Sorry, I couldn't generate a response just then. Please try again.";
+    loadingEl.remove();
+    addMsg(answer, 'bot');
+    history.push({ role: 'assistant', content: answer });
+  } catch(err){
+    loadingEl.remove();
+    addMsg("Something went wrong reaching the assistant. Please try again in a moment.", 'bot');
+    console.error(err);
+  } finally {
+    chatSend.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>
